@@ -1,0 +1,41 @@
+<div class="col-md-12">
+<div class="row">
+  <div class="col-md-4"><h1>Countries and Regions</h1></div>
+</div>
+<div class="row">
+  <div class="row">
+    <div class="col-md-4"><h2>Countries</h2></div>
+  </div>
+   {{#each countries}}
+      <div class="col-md-2">
+        <div class="card">
+          <a href="#countryProfiles/{{name}}_{{id}}">
+           <img src="src/images/escap/cou_{{id}}.png" alt="country" class="card-img-top"  width ="160" height="90"/>
+         </a>
+          <div class="card-block">
+            <br>
+            <h5 class="card-title" style="font-size: 10px;text-align: left;">{{name}}</h5>
+          </div>
+        </div>
+      </div>
+   {{/each}}
+</div>
+<div class="row">
+  <div class="row">
+    <div class="col-md-4"><h2>Regions</h2></div>
+  </div>
+   {{#each regions}}
+      <div class="col-md-4">
+        <div class="card">
+          <a href="#countryProfiles/{{name}}_{{id}}">
+           <img src="src/images/escap/cou_{{id}}.png" alt="country" class="card-img-top"  width ="350" height="150"/>
+         </a>
+          <div class="card-block">
+            <br>
+            <h4 class="card-title" style="font-size: 15px;text-align: left;">{{name}}</h4>
+          </div>
+        </div>
+      </div>
+   {{/each}}
+</div>
+</div>

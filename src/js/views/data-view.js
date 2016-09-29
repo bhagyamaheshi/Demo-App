@@ -7,8 +7,9 @@ define([
     'config/events',
     'config/config',
     'fx-table/start',
+    'fx-chart/start',
     'amplify'
-], function ($,View, template, i18nLabels, E,C, Table) {
+], function ($,View, template, i18nLabels, E,C, Table,Chart) {
 
     'use strict';
 
@@ -32,9 +33,12 @@ define([
       YEAR_CONTAINER: ".yearItems",
       YEAR_CHECKS: "input[name=year]",
       METADATA: ".metadata",
+      INDIC_METADATA: "#indic_metadata",
       GETDATA: "#getData",
       DATA_OUTPUT: "#dataContainer",
-      DATA_DESC: ".dataDesc"
+      DATA_DESC: ".dataDesc",
+      GRAPHS: ".graphs",
+      GRAPH_OPTIONS: "#chartOptions"
     };
 
     var DataView = View.extend({
@@ -88,11 +92,28 @@ define([
                 var Children_level2 ={};
                 var Children_level3 =[];
                 var element = [];
+
+                $(s.ELEMENT_CONTAINER).empty();
+                $(s.DATA_ELEMENTS).empty();
+                $(s.COUNTRY_CONTAINER).empty();
+                $(s.COUNTRY_CHECKS).prop('checked',false);
+                $(s.YEAR_CONTAINER).empty();
+                $(s.YEAR_CHECKS).prop('checked',false);
+                $(s.SHORT_NAMES).toggleClass("red-cell",false);
+                $('#indic_name').empty();
+                $('#indic_unit').empty();
+                $('#export_data').empty();
+                $('#make_chart').empty();
+                $(s.DATA_OUTPUT).empty();
+                $(s.INDIC_METADATA).empty();
+                $(s.GRAPHS).empty();
+                $(s.GRAPH_OPTIONS).empty();
+                
                 Children_level1 = subDomainItems[value];
 
                 Children_level2 = _.find(Children_level1[0]["children"],function(obj){
                   return obj.title["EN"] == indicator;
-                })
+                });
 
                 Children_level3 = Children_level2["children"];
                 var indicator_LongName = Children_level3[0].title["EN"].split('#');
@@ -101,8 +122,10 @@ define([
                 $(s.INDICATOR1).html('<div id="'+Children_level3[0].code+'" style="display: inline-block;"><a class="btn btn-default">'+
                 indicator_LongName[0]+
                 '&nbsp;&nbsp;<span class="glyphicon glyphicon-remove"></span></a></div>').show();
-                $(this).toggleClass("red-cell",true);
+                $(s.SHORT_NAMES).removeClass("red-cell");
+                $(this).addClass("red-cell");
                 $(s.INDICATOR_CONTAINER).append('<a class="btn btn-default">'+indicator+'</a>');
+                $(s.INDIC_METADATA).append('<a class="btn btn-block btn-warning btn-lg">Metadata</a>')
 
                 var div_id = '#'+Children_level3[0].code;
                 $(div_id).on('click',function(){
@@ -117,7 +140,12 @@ define([
                   $(s.SHORT_NAMES).toggleClass("red-cell",false);
                   $('#indic_name').empty();
                   $('#indic_unit').empty();
+                  $('#export_data').empty();
+                  $('#make_chart').empty();
                   $(s.DATA_OUTPUT).empty();
+                  $(s.INDIC_METADATA).empty();
+                  $(s.GRAPHS).empty();
+                  $(s.GRAPH_OPTIONS).empty();
                 });
 
                 _.each(Children_level3,function(obj){
@@ -265,26 +293,13 @@ define([
             var elements = [];
             var dataSet1 = [];
             self.dataSet = [];
-            self.olap = {};
-            var FX = { metadata:{ dsd:{ "columns": [{"dataType": "code","title": {"EN": "Area"},
-        "domain": {"codes": [{"idCodeList": "ESCAP_COUNTRIES","version": "2016",
-              "extendedName": {"EN": "Area"}}]},"subject": "geo","key": true,"id": "Area"},
-        {"dataType": "code","title": {"EN": "Unit"},
-        "domain": {"codes": [{"idCodeList": "ESCAP_MEASURING_UNITS","version": "2016",
-              "extendedName": {"EN": "Units of measurement"}}]},"subject": "um",
-              "key": true,"id": "Unit_Id"},
-      {"dataType": "number","title": { "EN": "Value"},"subject": "value","key": false,"id": "data_value"},
-      {"dataType": "year","title": { "EN": "Time" },"subject": "time","key": true,"id": "Year"},
-      {"dataType": "code","title": {"EN": "Structure"},
-        "domain": {"codes": [{"idCodeList": "ESCAP_INDICATOR_STRUCTURE","version": "2016","extendedName": {
-                "EN": "Indicator classification"}}]},"subject": "structure","key": true,"id": "Structure_Id"
-      }]}},
-        "data" : []};
-          var config={ rows :["Area"], columns :["Year"],  values:["data_value"], formatter:"localstring", decimals:1, showRowHeaders:true, model:FX, el:"#dataContainer" }
+            //self.olap = {};
+
 
             $(s.DATA_DESC).html('<h3>Indicator&nbsp;:&nbsp;<div id="indic_name" style="display: inline-block;"></div></h3>'+
-              '<h3>Unit&nbsp;:&nbsp;<div id="indic_unit" style="display: inline-block;"></div></h3>'+
-              '<h3>Export Data &nbsp; : &nbsp; <div id="export_data" style="display: inline-block;"></div></h3>').show();
+                '<h3>Unit&nbsp;:&nbsp;<div id="indic_unit" style="display: inline-block;"></div></h3>'+
+                '<h3>Export Data &nbsp; : &nbsp; <div id="export_data" style="display: inline-block;"></div></h3>').show();
+
 
 
             _.each($(s.COUNTRY_CONTAINER).children(),function(obj){
@@ -325,7 +340,7 @@ define([
                         return obj3[3] == obj2;
                       });
                       if(dataVal2.length != 0) {
-                        dataSet1.push(dataVal2);
+                        dataSet1.push(dataVal2[0]);
                       }
                     });
                   });
@@ -333,27 +348,91 @@ define([
 
                  }
             });
-                //console.log(dataSet1);
-                FX["data"] = dataSet1;
-                //self.olap = new OlapCreator(config);
+
+            console.log(dataSet1);
+            var FX = { metadata:{ dsd:{ columns:[
+              {"id" : "country","title" : {"EN" : "Country Code"},key:true},
+              {"id" : "Unit_Id","title" : {"EN" : "Unit Code"},key:true},
+              {"id" : "value","title" : {"EN" : "Data Value"},subject:"value",dataType:"number"},
+              {"id" : "Year","title" : {"EN" : "Year"},key:true,subject:"time"},
+              {"id" : "Structure_Id","title":{"EN" : "Indicator Classification"}},
+              {"id" : "country_EN","title" : {"EN" : "Country"}},
+              {"id" : "Unit_EN","title" : {"EN" : "Unit"}},
+              {"id" : "Indicator_EN","title" : {"EN" : "Indicator Name"}}]}},
+              "data" : dataSet1};
+          var config={  rows: ["country_EN","Year","Unit_EN","Indicator_EN","value"],
+                        aggregationFn:{value:"sum"},
+                        formatter:"value",
+                        decimals:1,
+                        showRowHeaders:true,
+                        model:FX,
+                        el:$(s.DATA_OUTPUT) };
+          var chart_config = {
+                                series :["country_EN","Indicator_EN","Unit_EN"],
+                                x :["Year"],
+                                aggregations:["Indicator_EN"],
+                                y:["value"],
+                                aggregationFn:{value:"sum"},
+                                formatter:"value",
+                                decimals:1,
+                                model:FX,
+                                el:$(s.GRAPH),
+                                type:"line"
+                              };
                 if(dataSet1.length != 0){
-                  $('#indic_name').html('<label>'+dataSet1[0][0][7]+'-'+$(s.ELEMENT_CONTAINER).children().text()+'</label>').show();
-                  $('#indic_unit').html('<label>'+dataSet1[0][0][6]+'</label>').show();
+                  $('#indic_name').html('<label>'+dataSet1[0][7]+'-'+$(s.ELEMENT_CONTAINER).children().text()+'</label>').show();
+                  $('#indic_unit').html('<label>'+dataSet1[0][6]+'</label>').show();
                   $('#export_data').html('<div id="csv" style="display: inline-block;"><a class="btn btn-info">CSV'+
                 '</div><div id="excel" style="display: inline-block;"><a class="btn btn-info">EXCEL').show();
 
 
-                  $(s.DATA_OUTPUT).append('<tr><th class="col-md-2">Country Code</th><th class="col-md-3">Country'+
+                  self.olap = new Table(config);
+
+                  /*$(s.DATA_OUTPUT).append('<tr><th class="col-md-2">Country Code</th><th class="col-md-3">Country'+
                   '</th><th class="col-md-1">Year</th><th class="col-md-1">Unit Id</th>'+
                   '<th class="col-md-2">Unit</th><th class="col-md-3">Data Value</th></tr>').show();
 
                   _.each(dataSet1,function(obj){
                   //  console.log(obj);
-                        $(s.DATA_OUTPUT).append('<tr><td>'+obj[0][0]+'</td>'+
-                        '<td>'+obj[0][5]+'</td><td>'+obj[0][3]+
-                        '</td><td>'+obj[0][1]+'</td><td>'+obj[0][6]+
-                        '</td><td>'+obj[0][2].toFixed(1)+'</td></tr>').show();
+                        $(s.DATA_OUTPUT).append('<tr><td>'+obj[0]+'</td>'+
+                        '<td>'+obj[5]+'</td><td>'+obj[3]+
+                        '</td><td>'+obj[1]+'</td><td>'+obj[6]+
+                        '</td><td>'+obj[2].toFixed(1)+'</td></tr>').show();
+                  });*/
+                  $(s.GRAPH_OPTIONS).html(
+                  '<select id="graphOptions" class="form-control"><option value="line">Line</option>'+
+                  '<option value="column">Column</option><option value="area">Area</option>'+
+                  '<option value="scatter">Scatter</option>'+
+                  '<select></div>').show();
+
+                  _.each(countries,function(obj){
+                    var country_data = _.filter(dataSet1,function(obj1){
+                      return obj1[0] == obj ;
+                    });
+                    var country_name = country_data[0][5];
+                    var div_id = 'graphCountry_'+obj;
+                    var el = '#'+div_id;
+                    $(s.GRAPHS).append('<div class="col-md-4"><h2>'+country_name+'</h2><div id='+div_id+'></div></div>');
+                    FX["data"] = country_data;
+                    chart_config.el = el;
+                    self.chart = new Chart(chart_config);
                   });
+
+                  $('#graphOptions').on('change',function(){
+                    chart_config.type = $(this).val();
+                    _.each(countries,function(obj){
+                      var country_data = _.filter(dataSet1,function(obj1){
+                        return obj1[0] == obj ;
+                      });
+                      var country_name = country_data[0][5];
+                      var div_id = 'graphCountry_'+obj;
+                      var el = '#'+div_id;
+                      FX["data"] = country_data;
+                      chart_config.el = el;
+                      self.chart = new Chart(chart_config);
+                    });
+                  });
+
                 }else{
                   $(s.DATA_OUTPUT).append('<tr><th class="col-md-2">Country Code</th><th class="col-md-3">Country'+
                   '</th><th class="col-md-1">Year</th><th class="col-md-1">Unit Id</th>'+

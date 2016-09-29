@@ -12,6 +12,10 @@ define(function () {
         match('inputData', 'inputData#show');
         match('data/:id', 'data#show');
         match('data','data#show');
+        match('compareData','compareData#show');
+        match('countryProfiles','countryProfiles#index');
+        match('countryProfiles/:id','countryProfiles#show');
+        match('didYouKnow','didYouKnow#index');
         /*match('demogDownload', 'demog#download');
         match('health', 'health#show');
         match('healthDownload', 'health#download');

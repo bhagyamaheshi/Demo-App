@@ -17,18 +17,9 @@
 		}
 	},{
 		"attrs": {
-			"id": "sdg"
-		},
-		"target": "#sdg",
-
-		"label": {
-			"EN": "SDG"
-		}
-	},{
-		"attrs": {
 			"id": "compareData"
 		},
-		"target": "#",
+		"target": "#compareData",
 
 		"label": {
 			"EN": "Compare Data"
@@ -37,11 +28,20 @@
 		"attrs": {
 			"id": "countryProfiles"
 		},
-		"target": "#",
+		"target": "#countryProfiles",
 
 		"label": {
 			"EN": "Country Profiles"
 		}
-	}],
+	},{
+		"attrs": {
+			"id": "didYouKnow"
+		},
+		"target": "#didYouKnow",
+
+		"label": {
+			"EN": "Did You Know?"
+		}
+		}],
 	"type": "static-top"
 }
