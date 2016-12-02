@@ -1,130 +1,147 @@
 <div class="row">
   <div class="col-md-12">
-  <br><br>
-  <div class="container-fluid">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-        <li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>
-      </ol>
+    <br><br>
+    <div class="container-fluid">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+          <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <img  class="img-responsive center-block" src="src/images/escap/domains.png" width="500" height="500">
-          <div class="carousel-caption">
-           <h3 style="color:white;">Statistical Domains</h3>
-           <p>Explore the data in ESCAP Database based on the domains</p>
-           <a href="#domains" class="btn btn-primary">Explore</a>
-         </div>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+          {{#each slides}}
+            {{#if @first}}
+            <div class="item active">
+              <img  class="img-responsive center-block" src="{{slide}}">
+            </div>
+            {{else}}
+            <div class="item">
+              <img  class="img-responsive center-block" src="{{slide}}">
+            </div>
+            {{/if}}
+          {{/each}}
         </div>
 
-        <div class="item">
-          <img  class="img-responsive center-block" src="src/images/escap/sdg.png" width="500" height="500">
-          <div class="carousel-caption">
-           <h3 style="color:white;">Sustainable Developmet Goals</h3>
-           <p>Explore the data related to Sustainable Development Goals</p>
-           <a href="#sdg" class="btn btn-primary">Explore</a>
-         </div>
-        </div>
+<!-- Left and right controls -->
+<a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+    <span class="icon-prev" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+<a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+    <span class="icon-next" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+</a>
+</div>
+</div>
+<br><br>
+</div>
+</div>
 
-        <div class="item">
-          <img  class="img-responsive center-block" src="src/images/escap/compare.png" width="500" height="500">
-          <div class="carousel-caption">
-           <h3 style="color:white;">Compare Data</h3>
-           <p>Compare your choice of data with a comparator</p>
-           <a href="#" class="btn btn-primary">Compare</a>
-         </div>
+<div class="container-fluid">
+<div class="card-columns">
+<div class="col-md-4">
+  <div class="card">
+    <img class="card-img-top img-responsive" src="src/images/escap/data.png" alt="Card image cap">
+    <div class="card-block">
+      <h2 class="card-title">Access Data</h2>
+      <div class="card-text">
+        <p>Browse, tabulate and download data for any of the 350 indicators
+          (disaggregated into 1200 data series) contained in the database.
+          Navigate through the 16 domains (Demographic trends, Health, Education,
+          Poverty, Gender, Energy and Natural Resources, Disasters, Environment, GDP,
+          Labour, Trade, Financing, Science, Technology and Innovation, Connectivity,
+          Governance, and Insecurity) and then sub-domains to select the indicator of
+          your choice
+        <br><br>
+        <a href="#domains" class="btn btn-info">Get Data</a></p>
+        <br>
+      </div>
+      </div>
+      <br><br>
+    </div>
+    <div class="card">
+      <img class="card-img-top img-responsive" src="src/images/escap/definition.png" alt="Card image cap">
+      <div class="card-block">
+        <h2 class="card-title">Methods and Definitions</h2>
+        <div class="card-text">
+          <p>Get information about the statistical indicators presented in the
+            database (data sources, definitions, classifications used), country
+            group composition and statistical methods used in compiling and
+            processing the data.
+          <br><br>
+          <a href="#methodDefinition" class="btn btn-info">Learn More</a></p>
         </div>
-
-        <div class="item">
-          <img  class="img-responsive center-block" src="src/images/escap/countries.png" width="500" height="500">
-          <div class="carousel-caption">
-           <h3 style="color:white;">Country Profiles</h3>
-           <p>Findout the statistical data related to countries</p>
-           <a href="#" class="btn btn-primary">Explore</a>
-         </div>
+          <br><br>
         </div>
       </div>
-
-      <!-- Left and right controls -->
-      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-      </a>
-    </div>
-  </div>
-</div>
 <br>
 </div>
-
-  <div class="container-fluid">
-    <div class="card-columns">
-      <div class="col-md-4">
-        <div class="card">
-          <img class="card-img-top img-responsive" src="src/images/escap/yearbook.png" alt="Card image cap">
-          <div class="card-block">
-            <h2 class="card-title">Statistical Year Book 2015</h2>
-            <p class="card-text"><small class="text-muted">Released: 17 February 2016</small></p>
-            <br>
-            <p class="card-text">For the first time the Yearbook is presenting analyses of the major development trends
-              for countries in Asia and the Pacific as they relate to the new 17 Sustainable Development Goals, investigating subregional trends and highlighting progress and disparities in social,
-              economic and environmental development. <br>
-              The Yearbook is being released with “Did you know?” development facts about the region,
-              and an overview factsheet for each country in Asia and the Pacific.
-              <br><br>
-            <a href="#" class="btn btn-primary">Year Book</a>
-            <a href="#" class="btn btn-primary">Do you know?</a></p> <br>
-          </div>
+<div class="col-md-4">
+    <div class="card">
+      <img class="card-img-top img-responsive" src="src/images/escap/charts.png" alt="Card image cap">
+      <div class="card-block">
+        <h2 class="card-title">Compare Data</h2>
+        <div class="card-text">
+          <p>Put side-by-side and compare two areas (country or group of countries)
+            for any given indicator. Display as charts and tables the similarities or
+            differences between countries, or the relative performance of a country
+            with the Asia-Pacific or world averages.
+          <br><br>
+          <a href="#compareData" class="btn btn-info">Compare</a></p>
         </div>
-        <br>
-        <div class="card">
-          <img class="card-img-top img-responsive" src="src/images/escap/yearbook2014.png" alt="Card image cap">
-          <div class="card-block">
-            <h2 class="card-title">Statistical Year Book 2014</h2>
-            <p class="card-text"><small class="text-muted">Released: 9 December 2014</small></p>
-            <br>
-            <p class="card-text">The Statistical Yearbook 2014 is an electronic file only, it consists of (1)
-              short analytical texts on 32 selected diverse topics, such as population, education, health,
-              poverty and inequalities, gender, economy, environment and
-              connectivity in the region and related key messages as well as
-              relevant data tables, and (2) country profiles of main development
-              indicators for each of the 58 regional member countries/areas of ESCAP.
-              <br><br>
-            <a href="#" class="btn btn-primary">Year Book</a></p> <br>
-          </div>
+          <br><br>
         </div>
       </div>
-      <div class="col-md-4">
       <div class="card">
-        <img class="card-img-top img-responsive" src="src/images/escap/pub.png" alt="Card image cap">
+        <img class="card-img-top img-responsive" src="src/images/escap/update.png" alt="Card image cap" width="100%">
         <div class="card-block">
-          <h2 class="card-title">Publications</h2>
-          <p class="card-text">There are number of publications from different divisions in ESCAP.</p>
-          <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                MPFD working paper on Obstacles to productivity in Asia and Pacific region: finance reigns
-                <p class="card-text"><small class="text-muted">8 Aug 2016</small></p>
-              </li>
-              <li class="list-group-item">
-                MPFD working paper on China's productivity: past success and future challenges
-                <p class="card-text"><small class="text-muted">8 Aug 2016</small></p>
-              </li>
-              <li class="list-group-item">
-                MPFD Working Paper on Productivity growth in India: determinants and policy initiatives based on the existing literature
-                <p class="card-text"><small class="text-muted">8 Aug 2016</small></p>
-              </li>
-          </ul>
+          <h2 class="card-title">Latest Updates</h2>
+          <div class="card-text">
+            <p>ESACAP Statistical database is regularly updated  with available data sources.
+             <br><br>
+            <h4 class="card-subtitle text-muted">Last Update : 16th Novermber 2016</h4>
+            <br><br>
+            &nbsp;<a href="#domains" class="btn btn-info">Explore</a></p>
+          </div>
+            <br><br>
+          </div>
         </div>
+</div>
+<div class="col-md-4">
+  <div class="card">
+    <img class="card-img-top img-responsive" src="src/images/escap/flags.png" alt="Card image cap">
+    <div class="card-block">
+      <h2 class="card-title">Statistical Profiles</h2>
+      <div class="card-text">
+        <p>Get an overview of a country/region development progress through a
+          number of selected indicators covering the various domains of the
+          database by comparing latest available data with an earlier reference year 2000.
+        <br><br>
+        <a href="#countryProfiles" class="btn btn-info">View Profile</a></p>
+        <br><br>
+      </div>
       </div>
     </div>
+    <div class="card">
+      <img class="card-img-top img-responsive" src="src/images/escap/email.png" alt="Card image cap" width="100%">
+      <div class="card-block">
+        <h2 class="card-title">Contact Us</h2>
+        <div class="card-text">
+          <p>For further inquiries, suggesions and comments please contact,<br>
+            Address : Statistics Division, UNESCAP, The United Nations Building, Rajadamnern Nok Avenue
+                      Bangkok 10200, Thailand <br>
+            Email : stat.escap@un.org
+           <br><br>
+          </p>
+        </div>
+          <br>
+        </div>
     </div>
-  </div>
-<br><br><br><br><br>
+</div>
+</div>
+</div>
+<br><br><br>

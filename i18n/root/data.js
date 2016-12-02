@@ -4,17 +4,26 @@ define({
 
     "text": "Change me in 118n/root/data.js",
 
-    title_background: "",
-
-    background_first_line: "Data on individual food consumption are needed to better inform agricultural and food policies andprogrammes at global, " +
-    "national and sub-national level. Moreover, nutrition indicators expressed as nutrients needed to inform nutrition " +
-    "sensitive agriculture and fortification policies. Nutrient food sources also need to be identified in order to " +
-    "develop food based dietary guidelines. Currently, at global level, most policies and programmes are informed" +
-    " by data related to the availability of food at national level (food supply data) or at household level (household survey data). " +
-    "It is the case for the global food-based nutrition indicators which appear in the" +
-    " SOFI publication (The State of Food Insecurity in the World) published annually by FAO and in " +
-    "the Millennium Development Goals. Current global food-based nutrition indicators would be strengthened if " +
-    "also gender sensitive data on individual food consumption were used.",
+    domains: {
+      "domainList":[
+        {"id": 10, "name": "Demographic Trends"},
+        {"id": 20, "name": "Health"},
+        {"id": 30, "name": "Education"},
+        {"id": 40, "name": "Poverty and Insecurity"},
+        {"id": 50, "name": "Gender"},
+        {"id": 60, "name": "Energy and Natural Resources"},
+        {"id": 70, "name": "Disaster"},
+        {"id": 80, "name": "Environment"},
+        {"id": 90, "name": "GDP"},
+        {"id": 100, "name": "Labour"},
+        {"id": 110, "name": "Trade"},
+        {"id": 120, "name": "Financing"},
+        {"id": 130, "name": "Science Technology and Innovation"},
+        {"id": 140, "name": "Connectivity"},
+        {"id": 150, "name": "Governance"},
+        {"id": 160, "name": "Insecurity"}
+      ]
+    },
 
     background_second_line: "However, available individual food consumption data are extremely " +
     "under-utilized mainly because they are not made publicly available in an appropriate dissemination" +

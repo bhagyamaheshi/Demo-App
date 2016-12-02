@@ -5,7 +5,8 @@ define(function () {
 
     return {
 
-        SERVICE_BASE_ADDRESS: "http://escap-fenix-01.escap.un.org:7777",
+        //SERVICE_BASE_ADDRESS: "http://escap-fenix-01.escap.un.org:7777",
+        SERVICE_BASE_ADDRESS: "http://escap-fenix-01.escap.un.org/fenix",
         ENVIRONMENT: 'production',
 
         //Chaplin JS configuration

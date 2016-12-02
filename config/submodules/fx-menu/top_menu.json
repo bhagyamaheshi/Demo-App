@@ -13,22 +13,13 @@
 		},
 		"target": "#domains",
 		"label": {
-			"EN": "Data"
-		}
-	},{
-		"attrs": {
-			"id": "sdg"
-		},
-		"target": "#sdg",
-
-		"label": {
-			"EN": "SDG"
+			"EN": "Access Data"
 		}
 	},{
 		"attrs": {
 			"id": "compareData"
 		},
-		"target": "#",
+		"target": "#compareData",
 
 		"label": {
 			"EN": "Compare Data"
@@ -37,11 +28,20 @@
 		"attrs": {
 			"id": "countryProfiles"
 		},
-		"target": "#",
+		"target": "#countryProfiles",
 
 		"label": {
-			"EN": "Country Profiles"
+			"EN": "Statistical Profiles"
 		}
-	}],
+	},{
+			"attrs": {
+				"id": "methodDefinition"
+			},
+			"target": "#methodDefinition",
+
+			"label": {
+				"EN": "Methods and Definitions"
+			}
+		}],
 	"type": "static-top"
 }
